@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Spark Kiosk · Inventory Management System</title>
+    <title>Spark Back Office · Inventory Management System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== DESIGN SYSTEM ===== */
@@ -1141,7 +1141,7 @@
             <div class="login-header">
                 <div class="login-logo">
                     <i class="fas fa-bolt"></i>
-                    Spark Kiosk
+                    Spark Back Office
                 </div>
                 <div class="login-subtitle">Inventory · Dispatch · Analytics</div>
             </div>
@@ -1169,7 +1169,7 @@
             </div>
             
             <div class="login-footer">
-                <p>© 2025 Spark Kiosk · All rights reserved</p>
+                <p>© 2025 Spark Back Office · All rights reserved</p>
             </div>
         </div>
     </div>
@@ -1180,7 +1180,7 @@
             <div class="header-content">
                 <div class="logo-area">
                     <i class="fas fa-bolt logo-icon"></i>
-                    <span class="logo-text">Spark Kiosk</span>
+                    <span class="logo-text">Spark Back Office</span>
                 </div>
                 <div class="user-area">
                     <div class="user-badge">
@@ -1280,7 +1280,7 @@
                             <option value="">All</option>
                             <option value="Streetwise Meats">Streetwise Meats</option>
                             <option value="Rocktown">Rocktown</option>
-                            <option value="Kiosk">Kiosk</option>
+                            <option value="Back Office">Back Office</option>
                         </select>
                     </div>
                     <button class="btn btn-primary" onclick="loadDispatchHistory()">
@@ -1641,7 +1641,7 @@
 
         async function checkAuth() {
             try {
-                const userData = localStorage.getItem('spark_kiosk_user');
+                const userData = localStorage.getItem('spark_Back Office_user');
                 if (userData) {
                     currentUser = JSON.parse(userData);
                     currentRole = currentUser.role;
@@ -1745,7 +1745,7 @@
                 if (user) {
                     currentUser = user;
                     currentRole = user.role;
-                    localStorage.setItem('spark_kiosk_user', JSON.stringify(currentUser));
+                    localStorage.setItem('spark_Back Office_user', JSON.stringify(currentUser));
                     
                     document.getElementById('loginModal').style.display = 'none';
                     document.getElementById('mainContainer').style.display = 'block';
@@ -2310,7 +2310,7 @@
                                 <select id="dispatchCompanyModal" required>
                                     <option value="Streetwise Meats">Streetwise Meats</option>
                                     <option value="Rocktown">Rocktown</option>
-                                    <option value="Kiosk">Kiosk</option>
+                                    <option value="Back Office">Back Office</option>
                                 </select>
                             </div>
                             <div class="modal-field">
@@ -2648,7 +2648,7 @@
             if (currentRole !== 'admin') return;
             showLoading('Loading dispatch history...');
             try {
-                const res = await fetch(HISTORY_API + '?action=kiosk_history');
+                const res = await fetch(HISTORY_API + '?action=Back Office_history');
                 const data = await res.json();
                 if (data.status === 'success') {
                     dispatchHistory = data.data || [];
@@ -2727,7 +2727,7 @@
             if (currentRole !== 'admin') return;
             showLoading('Loading sales...');
             try {
-                const res = await fetch(HISTORY_API + '?action=kiosk_history');
+                const res = await fetch(HISTORY_API + '?action=Back Office_history');
                 const data = await res.json();
                 if (data.status === 'success') {
                     const sales = data.data || [];
@@ -2910,7 +2910,7 @@
             const win = window.open('', '_blank');
             win.document.write(`
                 <!DOCTYPE html>
-                <html><head><title>Spark Kiosk – Dispatch Report</title>
+                <html><head><title>Spark Back Office – Dispatch Report</title>
                 <style>
                     body { font-family: 'Inter', sans-serif; margin: 2cm 1.5cm; color: #1f2937; }
                     h1 { color: #1135D1; font-size: 28px; margin-bottom: 8px; }
@@ -2923,7 +2923,7 @@
                     .negative { color: #ef4444; font-weight: 600; }
                     .footer { margin-top: 30px; font-size: 12px; color: #6b7280; text-align: center; }
                 </style></head><body>
-                <h1>Spark Kiosk · Dispatch Report</h1>
+                <h1>Spark Back Office · Dispatch Report</h1>
                 <div class="sub">${new Date().toLocaleString()}</div>
                 <div class="header"><div><strong>From:</strong> ${from}</div><div><strong>To:</strong> ${to}</div><div><strong>Company:</strong> ${company}</div></div>
                 <table>
@@ -2947,7 +2947,7 @@
                         }).join('')}
                     </tbody>
                 </table>
-                <div class="footer">Generated by Spark Kiosk · Total dispatches: ${document.getElementById('totalDispatches')?.textContent || '0'}</div>
+                <div class="footer">Generated by Spark Back Office · Total dispatches: ${document.getElementById('totalDispatches')?.textContent || '0'}</div>
                 </body></html>
             `);
             win.document.close();
@@ -2960,7 +2960,7 @@
             const win = window.open('', '_blank');
             win.document.write(`
                 <!DOCTYPE html>
-                <html><head><title>Spark Kiosk – Sales Report</title>
+                <html><head><title>Spark Back Office – Sales Report</title>
                 <style>
                     body { font-family: 'Inter', sans-serif; margin: 2cm 1.5cm; }
                     h1 { color: #1135D1; font-size: 28px; }
@@ -2972,7 +2972,7 @@
                     td { padding: 10px; border-bottom: 1px solid #e5e7eb; }
                     .positive { color: #10b981; } .negative { color: #ef4444; }
                 </style></head><body>
-                <h1>Spark Kiosk · Sales Report</h1>
+                <h1>Spark Back Office · Sales Report</h1>
                 <div class="header"><div><strong>From:</strong> ${from}</div><div><strong>To:</strong> ${to}</div><div><strong>Generated:</strong> ${new Date().toLocaleString()}</div></div>
                 <div class="stats">
                     <div class="stat"><strong>Total Sales</strong><br>${document.getElementById('totalSales')?.textContent || '$0'}</div>
@@ -3012,7 +3012,7 @@
             const win = window.open('', '_blank');
             win.document.write(`
                 <!DOCTYPE html>
-                <html><head><title>Spark Kiosk – Stock Adjustments</title>
+                <html><head><title>Spark Back Office – Stock Adjustments</title>
                 <style>
                     body { font-family: 'Inter', sans-serif; margin: 2cm 1.5cm; }
                     h1 { color: #1135D1; }
@@ -3024,7 +3024,7 @@
                     td { padding: 10px; border-bottom: 1px solid #e5e7eb; }
                     .positive { color: #10b981; } .negative { color: #ef4444; }
                 </style></head><body>
-                <h1>Spark Kiosk · Stock Adjustments</h1>
+                <h1>Spark Back Office · Stock Adjustments</h1>
                 <div class="header"><div><strong>From:</strong> ${from}</div><div><strong>To:</strong> ${to}</div></div>
                 <div class="stats">
                     <div class="stat"><strong>Total</strong><br>${document.getElementById('totalAdjustments')?.textContent || '0'}</div>
@@ -3084,7 +3084,7 @@
 
         function logout() {
             if (confirm('Logout?')) {
-                localStorage.removeItem('spark_kiosk_user');
+                localStorage.removeItem('spark_Back Office_user');
                 document.getElementById('mainContainer').style.display = 'none';
                 document.getElementById('loginModal').style.display = 'flex';
                 document.getElementById('username').value = '';
